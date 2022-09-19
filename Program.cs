@@ -9,7 +9,7 @@
 /*
 System.Console.WriteLine("Введите числа через пробел");
             //       1              2              3               4
-int[] array = Console.ReadLine().Split().Select(int.Parse).ToArray();
+int[] resultay = Console.ReadLine().Split().Select(int.Parse).ToArray();
 /*
 1 -- считываем с консоли запись в формате string;
 2 -- разделяем ввод посредством используя разделитель "пробел";
@@ -26,7 +26,7 @@ int[] array = Console.ReadLine().Split().Select(int.Parse).ToArray();
     }
     return i;
  }
-System.Console.WriteLine($"В массиве {String.Join("|", array)} элементов больше нуля: {count(array)}");
+System.Console.WriteLine($"В массиве {String.Join("|", resultay)} элементов больше нуля: {count(resultay)}");
 */
 //----------------------------------Exercise #41------------------------------
 /*
@@ -60,30 +60,46 @@ System.Console.WriteLine($"Точка пересечения заданных л
 задача 40 - HARD необязательная. На вход программы подаются три целых положительных числа. Определить , является ли это сторонами треугольника. 
 Если да, то вывести всю информацию по нему - площадь, периметр, значения углов треугольника в градусах, является ли он прямоугольным, равнобедренным, равносторонним.*/
 //----------------------------------SOLUTION-----------------------------------
-object[] Triangle(double a, double b, double c)
+void Triangle(double a, double b, double c)
 {
     // Проверка на наличие треугольника
-    object[] result = new object[10];
+    string[] result = new string[9];
     if (a + b > c && c + b > a && a + c > b) result[0] = $"Такой треугольник существует его стороны а = {a}, b = {b}, c = {c} ";
     else
     {
-        Array.Resize(ref result, 1);
-        result[0] = $"Такой треугольник НЕ существует, дружок";
-        return result;
+        System.Console.WriteLine("Такой треугольник НЕ существует, дружок"); ;
+        return;
     }
     // Вычисление углов 
-    int alpha = Math.Round(Math.Acos((a * a + b * b - c * c) / (2 * a * b)));
-    int betta = Math.Round(Math.Acos((c * c + b * b - a * a) / (2 * c * b)));
-    int gamma = 180 - result[1] - result[2];
+    int alpha = Convert.ToInt32(Math.Round(180 * Math.Acos((a * a + b * b - c * c) / (2 * a * b)) / Math.PI));
+    int betta = Convert.ToInt32(Math.Round(180 * Math.Acos((c * c + b * b - a * a) / (2 * c * b)) / Math.PI));
+    int gamma = 180 - alpha - betta;
+    result[1] = Convert.ToString(alpha);
+    result[2] = Convert.ToString(betta);
+    result[3] = Convert.ToString(gamma);
     // Проверка прямоугольного треугольника
-    if (alpha == 90 || betta == 90 || gamma == 90) result[4] = "Это прямоугольный треугольник";
-    else result[4] = "Треугольник не прямоугольный";
-    if (alpha == betta || alpha == gamma || gamma == betta) result[5] = "Треугольник равнобедренный";
-    else result[5] = "Треугольник не равнобедренный";
+    if (alpha == 90 || betta == 90 || gamma == 90) result[4] = "";
+    else result[4] = "не ";
+    // Проверка равнобедренности треугольника
+    if (alpha == betta || alpha == gamma || gamma == betta) result[5] = "";
+    else result[5] = "не ";
+    // Проверка на равносторонность
+    if (alpha == betta && alpha == gamma) result[6] = "";
+    else result[6] = "не ";
+    // Вычисление площади треугольника
+    result[7] = Convert.ToString(Math.Round(a * b * Math.Sin(alpha) / 2, 4));
+    // Вычисление периметра
+    result[8] = Convert.ToString(a + b + c);
+    System.Console.WriteLine("------------------------------------------------------------------------------------");
+    System.Console.WriteLine($"{result[0]}");
+    System.Console.WriteLine($"Он {result[4]}прямоугольный, {result[5]}равнобедренный, {result[6]}равносторонний");
+    System.Console.WriteLine($"С площадью {result[7]} m^2 и периметром {result[8]} m");
 
+}
 
-    return result;
-
+void loading(char ask)
+{
+    System.Console.WriteLine("");
 }
 System.Console.Write(" введите сторону a ");
 double a = Convert.ToDouble(Console.ReadLine());
@@ -91,6 +107,9 @@ System.Console.Write(" введите сторону b ");
 double b = Convert.ToDouble(Console.ReadLine());
 System.Console.Write(" введите сторону c ");
 double c = Convert.ToDouble(Console.ReadLine());
+System.Console.WriteLine("Запустить сбор статистики о введеном треугольнике?");
+char ask = Console.ReadKey().KeyChar;
 
-object[] arr = Triangle(a, b, c);
-System.Console.WriteLine(String.Join("|", arr));
+Triangle(a, b, c);
+
+
