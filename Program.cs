@@ -55,7 +55,7 @@ double b2 = Convert.ToDouble(Console.ReadLine());
 double[] answer = crossPt(k1,k2,b1,b2);
 System.Console.WriteLine($"Точка пересечения заданных линейных уравнений Х = {answer[0]},  Y = {answer[1]}");
 */
-//----------------------------------Exercise #41------------------------------
+//----------------------------------Exercise #40 HARD------------------------------
 /*
 задача 40 - HARD необязательная. На вход программы подаются три целых положительных числа. Определить , является ли это сторонами треугольника. 
 Если да, то вывести всю информацию по нему - площадь, периметр, значения углов треугольника в градусах, является ли он прямоугольным, равнобедренным, равносторонним.*/
@@ -64,7 +64,7 @@ void Triangle(double a, double b, double c)
 {
     // Проверка на наличие треугольника
     string[] result = new string[9];
-    if (a + b > c && c + b > a && a + c > b) result[0] = $"Такой треугольник существует его стороны а = {a}, b = {b}, c = {c} ";
+    if (a + b > c && c + b > a && a + c > b) result[0] = $"Такой треугольник существует, его стороны а = {a}, b = {b}, c = {c} ";
     else
     {
         System.Console.WriteLine("Такой треугольник НЕ существует, дружок"); ;
@@ -91,25 +91,57 @@ void Triangle(double a, double b, double c)
     // Вычисление периметра
     result[8] = Convert.ToString(a + b + c);
     System.Console.WriteLine("------------------------------------------------------------------------------------");
-    System.Console.WriteLine($"{result[0]}");
-    System.Console.WriteLine($"Он {result[4]}прямоугольный, {result[5]}равнобедренный, {result[6]}равносторонний");
-    System.Console.WriteLine($"С площадью {result[7]} m^2 и периметром {result[8]} m");
+    System.Console.WriteLine($"{result[0]}.");
+    System.Console.WriteLine($"Он {result[4]}прямоугольный, {result[5]}равнобедренный, {result[6]}равносторонний.");
+    System.Console.WriteLine($"С площадью {result[7]} m^2 и периметром {result[8]} m.");
 
 }
-
-void loading(char ask)
+void Turn()
 {
-    System.Console.WriteLine("");
+    for (int i = 0; i < 4; i++)
+    {
+        switch (i % 4)
+        {
+            case 0: Console.Write("/"); Thread.Sleep(200); break;
+            case 1: Console.Write("-"); Thread.Sleep(200); break;
+            case 2: Console.Write("\\"); Thread.Sleep(200); break;
+            case 3: Console.Write("|"); Thread.Sleep(200); break;
+        }
+        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+    }
 }
-System.Console.Write(" введите сторону a ");
+System.Console.Write("Ведите сторону a = ");
 double a = Convert.ToDouble(Console.ReadLine());
-System.Console.Write(" введите сторону b ");
+System.Console.Write("Введите сторону b = ");
 double b = Convert.ToDouble(Console.ReadLine());
-System.Console.Write(" введите сторону c ");
+System.Console.Write("Введите сторону c = ");
 double c = Convert.ToDouble(Console.ReadLine());
-System.Console.WriteLine("Запустить сбор статистики о введеном треугольнике?");
-char ask = Console.ReadKey().KeyChar;
 
-Triangle(a, b, c);
+void LaunchStatic()
+{
+    System.Console.WriteLine("Запустить сбор статистики о введеном треугольнике? (Y/N)");
+    char ask = Console.ReadKey().KeyChar;
+    switch (ask)
+    {
+        case 'y':
+            {
+                System.Console.WriteLine("ep");
+                System.Console.WriteLine("Считаю стороны...");
+                Turn();
+                System.Console.WriteLine("Вычисляю углы...");
+                Turn();
+                System.Console.WriteLine("Описываю характеристики...");
+                Turn();
+                System.Console.WriteLine("Готово!");
+                Triangle(a, b, c);
+            }
+            break;
+        case 'n':
+            System.Console.WriteLine("ope");
+            System.Console.WriteLine("Не хотите, как хотите");
+            break;
+        default: LaunchStatic(); break;
+    }
+}
 
-
+LaunchStatic();
