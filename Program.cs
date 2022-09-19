@@ -60,6 +60,7 @@ System.Console.WriteLine($"Точка пересечения заданных л
 задача 40 - HARD необязательная. На вход программы подаются три целых положительных числа. Определить , является ли это сторонами треугольника. 
 Если да, то вывести всю информацию по нему - площадь, периметр, значения углов треугольника в градусах, является ли он прямоугольным, равнобедренным, равносторонним.*/
 //----------------------------------SOLUTION-----------------------------------
+/*
 void Triangle(double a, double b, double c)
 {
     // Проверка на наличие треугольника
@@ -143,5 +144,66 @@ void LaunchStatic()
         default: LaunchStatic(); break;
     }
 }
-
 LaunchStatic();
+*/
+
+//----------------------------------Exercise #40 HARD------------------------------
+/*задача 2 HARD необязательная. 
+Сгенерировать массив случайных целых чисел размерностью m*n (размерность вводим с клавиатуры). 
+Вывести на экран красивенько таблицей. Найти минимальное число и его индекс, найти максимальное число и его индекс. 
+Вывести эту информацию на экран.*/
+//----------------------------------SOLUTION-----------------------------------
+System.Console.Write("Введите сторону n = ");
+int n = Convert.ToInt32(Console.ReadLine());
+System.Console.Write("Введите сторону m = ");
+int m = Convert.ToInt32(Console.ReadLine());
+int[,] fillMas(int n, int m)
+{
+
+    int[,] mas = new int[n, m];
+    for (int i = 0; i < n; i++)
+    {
+        System.Console.WriteLine("\t");
+        for (int j = 0; j < m; j++)
+        {
+
+            mas[i, j] = new Random().Next(-10, 11);
+            System.Console.Write($"\t|{mas[i, j]}");
+
+        }
+        // System.Console.Write("\n");
+
+
+
+
+    }
+    return mas;
+}
+int[] MinMax(int[,] mas)
+{
+    int max = mas[0, 0];
+    int min = mas[0, 0];
+    int[] result = new int[5];
+    foreach (var item in mas)
+    {
+        if (item > max) max = item;
+        if (item < min) min = item;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (mas[i, j] > max) result[0] = i; result[1] = j;
+            if (mas[i, j] < min) result[2] = i; result[3] = j;
+        }
+
+    }
+    result[4] = max - min;
+    return result;
+}
+
+
+
+int[,] arr = fillMas(n, m);
+// System.Console.WriteLine(String.Join("|", arr));
+
