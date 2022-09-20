@@ -153,9 +153,9 @@ LaunchStatic();
 Вывести на экран красивенько таблицей. Найти минимальное число и его индекс, найти максимальное число и его индекс. 
 Вывести эту информацию на экран.*/
 //----------------------------------SOLUTION-----------------------------------
-System.Console.Write("Введите сторону n = ");
+System.Console.Write("Введите количество строк n = ");
 int n = Convert.ToInt32(Console.ReadLine());
-System.Console.Write("Введите сторону m = ");
+System.Console.Write("Введите количество столбцов m = ");
 int m = Convert.ToInt32(Console.ReadLine());
 int[,] fillMas(int n, int m)
 {
@@ -172,11 +172,8 @@ int[,] fillMas(int n, int m)
 
         }
         // System.Console.Write("\n");
-
-
-
-
     }
+    System.Console.Write("\n");
     return mas;
 }
 int[] MinMax(int[,] mas)
@@ -193,8 +190,10 @@ int[] MinMax(int[,] mas)
     {
         for (int j = 0; j < m; j++)
         {
-            if (mas[i, j] > max) result[0] = i; result[1] = j;
-            if (mas[i, j] < min) result[2] = i; result[3] = j;
+            if (mas[i, j] == max) 
+            {result[0] = i; result[1] = j;}
+            else if (mas[i, j] == min) {result[2] = i; result[3] = j;}
+           
         }
 
     }
@@ -205,5 +204,8 @@ int[] MinMax(int[,] mas)
 
 
 int[,] arr = fillMas(n, m);
+int[] mm = MinMax(arr);
+System.Console.WriteLine($" Максимальное значение в массиве {arr[mm[0], mm[1]]}.\n Находится в {mm[1]+1} столбце, {mm[0]+1} строке.\n Минимальное значение {arr[mm[2], mm[3]]}\n Находится в {mm[3]+1} столбце,{mm[2]+1} строке.\n Разница наибольшего и наименьшего значений = {mm[4]} ");
+
 // System.Console.WriteLine(String.Join("|", arr));
 
