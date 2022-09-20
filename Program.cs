@@ -193,19 +193,15 @@ int[] MinMax(int[,] mas)
             if (mas[i, j] == max) 
             {result[0] = i; result[1] = j;}
             else if (mas[i, j] == min) {result[2] = i; result[3] = j;}
-           
         }
 
     }
     result[4] = max - min;
     return result;
 }
-
-
-
 int[,] arr = fillMas(n, m);
 int[] mm = MinMax(arr);
 System.Console.WriteLine($" Максимальное значение в массиве {arr[mm[0], mm[1]]}.\n Находится в {mm[1]+1} столбце, {mm[0]+1} строке.\n Минимальное значение {arr[mm[2], mm[3]]}\n Находится в {mm[3]+1} столбце,{mm[2]+1} строке.\n Разница наибольшего и наименьшего значений = {mm[4]} ");
 
-// System.Console.WriteLine(String.Join("|", arr));
+
 
